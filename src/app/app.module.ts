@@ -11,6 +11,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CoursesItemComponent } from './courses-item/courses-item.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DurationPipe } from './pipes/duration.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     CoursesPageComponent,
     BreadcrumbsComponent,
     CoursesListComponent,
-    CoursesItemComponent
+    CoursesItemComponent,
+    DurationPipe
   ],
   imports: [
     BrowserModule,
