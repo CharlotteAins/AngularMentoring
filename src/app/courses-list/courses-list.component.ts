@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {Component, OnInit, SimpleChanges} from '@angular/core';
+import {CourseService} from '../course.service';
 
 @Component({
   selector: 'app-courses-list',
@@ -7,11 +7,26 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./courses-list.component.css']
 })
 export class CoursesListComponent implements OnInit {
-  form = new FormControl('');
 
-  constructor() { }
+  public allCourses;
+  public searchParam;
+
+  constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
+    this.loadCourses();
   }
 
+  loadCourses(): void {
+    this.courseService.getAll().subscribe(courses => this.allCourses = courses);
+  }
+
+  search(): void {
+    console.log(this.searchParam);
+  }
+
+  delete(id: string): void {
+    this.courseService.delete(id);
+    this.loadCourses();
+  }
 }

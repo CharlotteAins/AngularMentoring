@@ -12,4 +12,7 @@ export class CoursesPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  loadMore(): void {
+    console.log('load more courses');
+  }
 }
