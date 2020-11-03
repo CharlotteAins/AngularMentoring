@@ -9,9 +9,16 @@
     <span>Add course</span>
   </button>
 
-  <ul class="course-list">
-    <li *ngFor="let course of allCourses">
-      <app-courses-item [course]="course" (deleteHandler)="delete($event)"></app-courses-item>
-    </li>
-  </ul>
+  <div *ngIf="allCourses.length > 0; else coursesNotFound">
+    <ul class="course-list">
+      <li *ngFor="let course of allCourses | orderBy: 'creationDate'">
+        <app-courses-item appCourseDate [course]="course" (deleteHandler)="delete($event)"></app-courses-item>
+      </li>
+    </ul>
+    <button type="button" (click)="loadMore()" class="loadMore-btn">Load more</button>
+  </div>
+
+  <ng-template #coursesNotFound>
+    <p class="notFoundMassage">{{coursesNotFoundMessage | uppercase}}</p>
+  </ng-template>
 </div>
