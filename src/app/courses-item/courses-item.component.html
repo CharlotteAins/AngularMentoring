@@ -1,6 +1,6 @@
 <div class="course-card">
   <div class="top-section">
-    <h3 class="course-title">{{course.title}}</h3>
+    <h3 [ngClass]="{'star': course.topRated}" class="course-title">{{course.title}}</h3>
     <div class="course-time-block">
       <p class="course-time">
         <i class="material-icons">schedule</i>

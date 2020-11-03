@@ -8,9 +8,9 @@ import {Course} from './course';
 export class CourseService {
 
   private mockCourses: Course[] = [
-    new Course('1', 'Video course 1', new Date('2020-10-11T03:24:00'), 120, 'These Angular docs help you learn and use the Angular framework and development platform, from your first application to optimizing complex single-page apps for enterprises. Tutorials and guides include downloadable examples to accelerate your projects.'),
+    new Course('1', 'Video course 1', new Date('2020-10-30T03:24:00'), 120, 'These Angular docs help you learn and use the Angular framework and development platform, from your first application to optimizing complex single-page apps for enterprises. Tutorials and guides include downloadable examples to accelerate your projects.', true),
     new Course('2', 'Video course 2', new Date('2020-10-12T03:24:00'), 80, 'These Angular docs help you learn and use the Angular framework and development platform, from your first application to optimizing complex single-page apps for enterprises. Tutorials and guides include downloadable examples to accelerate your projects.'),
-    new Course('3', 'Video course 3', new Date('2020-10-13T03:24:00'), 30, 'These Angular docs help you learn and use the Angular framework and development platform, from your first application to optimizing complex single-page apps for enterprises. Tutorials and guides include downloadable examples to accelerate your projects.')
+    new Course('3', 'Video course 3', new Date('2020-11-13T03:24:00'), 30, 'These Angular docs help you learn and use the Angular framework and development platform, from your first application to optimizing complex single-page apps for enterprises. Tutorials and guides include downloadable examples to accelerate your projects.')
   ];
 
   getAll(): Observable<Course[]> {

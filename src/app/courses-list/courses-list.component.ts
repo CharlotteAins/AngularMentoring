@@ -1,5 +1,6 @@
 import {Component, OnInit, SimpleChanges} from '@angular/core';
 import {CourseService} from '../course.service';
+import {FilterPipe} from '../pipes/filter.pipe';
 
 @Component({
   selector: 'app-courses-list',
@@ -10,8 +11,10 @@ export class CoursesListComponent implements OnInit {
 
   public allCourses;
   public searchParam;
+  public coursesNotFoundMessage = 'no data. feel free to add new courses';
 
-  constructor(private courseService: CourseService) { }
+  constructor( private courseService: CourseService,
+               private filterPipe: FilterPipe ) { }
 
   ngOnInit(): void {
     this.loadCourses();
@@ -22,11 +25,16 @@ export class CoursesListComponent implements OnInit {
   }
 
   search(): void {
-    console.log(this.searchParam);
+    this.loadCourses();
+    this.allCourses = this.filterPipe.transform( this.allCourses, this.searchParam );
   }
 
   delete(id: string): void {
     this.courseService.delete(id);
     this.loadCourses();
+  }
+
+  loadMore(): void {
+    console.log( 'load more courses' );
   }
 }
