@@ -1,5 +1,5 @@
-import { Course } from './../course';
 import { CoursesItemComponent } from './courses-item.component';
+import {Course} from '../interfaces/course';
 
 
 describe( 'CoursesItemComponent', () => {

@@ -14,6 +14,7 @@ import { LogoComponent } from './logo/logo.component';
 import { DurationPipe } from './pipes/duration.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     DurationPipe,
     CourseDateDirective,
     OrderByPipe,
-    FilterPipe
+    FilterPipe,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
