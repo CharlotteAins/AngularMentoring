@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 
 @Component( {
@@ -11,7 +12,7 @@ export class LoginPageComponent implements OnInit {
 
   public form: FormGroup;
 
-  constructor ( private authService: AuthService ) { }
+  constructor ( private authService: AuthService, private router: Router ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup( {
@@ -25,6 +26,8 @@ export class LoginPageComponent implements OnInit {
       return;
     }
 
-    this.authService.login( this.form.value );
+    if ( this.authService.login( this.form.value ) ) {
+      this.router.navigate( [ '/courses' ] );
+    }
   }
 }
