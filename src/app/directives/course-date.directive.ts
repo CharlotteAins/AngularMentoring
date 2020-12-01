@@ -13,7 +13,7 @@ export class CourseDateDirective implements OnInit {
   ngOnInit(): void {
     if ( this.isFreshDate() ) {
       this.renderer.addClass( this.element.nativeElement.firstChild, 'fresh-card' );
-    } else if ( this.course.creationDate > this.currentDate ) {
+    } else if ( new Date( this.course.date ) > this.currentDate ) {
       this.renderer.addClass( this.element.nativeElement.firstChild, 'upcoming-card' );
     }
   }
@@ -24,7 +24,7 @@ export class CourseDateDirective implements OnInit {
   }
 
   isFreshDate(): boolean {
-    return this.course.creationDate < this.currentDate
-      && this.course.creationDate >= this.getCalculatedDate();
+    return new Date( this.course.date ) < this.currentDate
+      && new Date( this.course.date ) >= this.getCalculatedDate();
   }
 }
