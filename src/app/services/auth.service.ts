@@ -1,28 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from './../interfaces/user';
+import { Observable } from 'rxjs';
+import { ILoginResponse } from './../interfaces/responses';
+import { IUser, User } from './../interfaces/user';
 
 @Injectable( { providedIn: 'root' } )
 export class AuthService {
-  private mockUsers: User[] = [
-    new User( '1', 'Alex', 'Bremm', 'alex@gmail.com', '123' ),
-    new User( '3', 'Max', 'Lov', 'max@gmail.com', '123' ),
-    new User( '4', 'Nika', 'Bush', 'nika@gmail.com', '123' ),
-    new User( '5', 'Axel', 'Menning', 'axel@gmail.com', '123' )
-  ];
+  private serverUrl: string = 'http://localhost:3004';
 
-  login( userData: User ): boolean {
-    const currentUser: User[] = this.mockUsers.filter( ( user: User ) => {
-      return user.email === userData.email
-        && user.password === userData.password;
+  constructor ( private http: HttpClient ) { };
+
+  login( userData: User ): Observable<ILoginResponse> {
+    return this.http.post<ILoginResponse>( `${ this.serverUrl }/auth/login`, {
+      login: userData.login,
+      password: userData.password
     } );
-
-    if ( currentUser.length ) {
-      localStorage.setItem( 'userInfo', JSON.stringify( currentUser[ 0 ] ) );
-      this.setToken( 'SECRET_TOKEN' );
-      return true;
-    }
-
-    return false;
   }
 
   logout(): void {
@@ -33,20 +25,15 @@ export class AuthService {
     return !!this.token;
   };
 
-  getUserInfo(): string {
-    if ( this.isAuthenticated() ) {
-      const currentUser: User = JSON.parse( localStorage.getItem( 'userInfo' ) );
-      return `${ currentUser.firstName } ${ currentUser.lastName }`;
-    } else {
-      this.logout();
-    }
+  getUserInfo(): Observable<IUser> {
+    return this.http.post<IUser>( `${ this.serverUrl }/auth/userinfo`, { token: this.token } );
   }
 
   get token(): string | null {
-    const expireDate: Date = new Date( localStorage.getItem( 'expireDate' ) );
+    const token = localStorage.getItem( 'token' );
 
-    if ( expireDate > new Date() ) {
-      return localStorage.getItem( 'token' );
+    if ( token ) {
+      return token;
     } else {
       this.logout();
       return null;
@@ -55,9 +42,7 @@ export class AuthService {
 
   setToken( value: string | null ): void {
     if ( value ) {
-      const expireDate: Date = new Date( new Date().getTime() + 3600 * 1000 );
       localStorage.setItem( 'token', value );
-      localStorage.setItem( 'expireDate', expireDate.toString() );
     } else {
       localStorage.clear();
     }
