@@ -10,7 +10,7 @@ export class AuthService {
     new User( '5', 'Axel', 'Menning', 'axel@gmail.com', '123' )
   ];
 
-  login( userData: User ): void {
+  login( userData: User ): boolean {
     const currentUser: User[] = this.mockUsers.filter( ( user: User ) => {
       return user.email === userData.email
         && user.password === userData.password;
@@ -19,7 +19,10 @@ export class AuthService {
     if ( currentUser.length ) {
       localStorage.setItem( 'userInfo', JSON.stringify( currentUser[ 0 ] ) );
       this.setToken( 'SECRET_TOKEN' );
+      return true;
     }
+
+    return false;
   }
 
   logout(): void {

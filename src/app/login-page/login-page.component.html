@@ -1,6 +1,12 @@
 <div class="login-layout">
   <div class="form-wrapper">
-    <h1 class="login-header">Login</h1>
+    <div class="header-wrapper">
+      <h1 class="login-header">Login</h1>
+      <small
+        *ngIf="form.invalid && form.dirty"
+        class="form-warning"
+      >Wrong e-mail or password</small>
+    </div>
     <form
       [formGroup]="form"
       (ngSubmit)="submit()"

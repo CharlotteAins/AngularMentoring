@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FilterPipe } from '../pipes/filter.pipe';
 import { CourseService } from './../services/course.service';
 
@@ -13,8 +14,11 @@ export class CoursesListComponent implements OnInit {
   public searchParam;
   public coursesNotFoundMessage = 'no data. feel free to add new courses';
 
-  constructor ( private courseService: CourseService,
-    private filterPipe: FilterPipe ) { }
+  constructor (
+    private courseService: CourseService,
+    private filterPipe: FilterPipe,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadCourses();
@@ -36,5 +40,9 @@ export class CoursesListComponent implements OnInit {
 
   loadMore(): void {
     console.log( 'load more courses' );
+  }
+
+  add(): void {
+    this.router.navigate( [ '/add' ] );
   }
 }
