@@ -1,4 +1,4 @@
-.login-layout {
+.form-layout {
   width: 100%;
   height: calc(100vh - 60px - 60px);
   background-color: #f1efef;
@@ -9,14 +9,14 @@
 }
 
 .form-wrapper {
-  min-width: 300px;
-  min-height: 300px;
+  min-width: 600px;
+  margin: 0 20px;
   padding: 0 40px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   background-color: #fff;
   box-shadow: 0 1px 2px 0 rgba(29, 30, 38, 0.10), 0 2px 10px 0 rgba(29, 30, 38, 0.15);
@@ -28,22 +28,8 @@
   width: 100%;
 }
 
-.form-warning {
+.header {
   width: 100%;
-  color: red;
-}
-
-.header-wrapper {
-  width: 100%;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.login-header {
-  width: 100%;
-  padding: 20px 0;
 
   position: relative;
   left: 0;
@@ -67,7 +53,6 @@
   color: #cbcbcb;
 }
 
-
 .field {
   width: 100%;
   margin: 5px 0;
@@ -77,16 +62,22 @@
   border-radius: 2px;
 }
 
+.field[type="date"],
+.field[type="number"] {
+  width: 35%;
+}
+
 .button-group {
   padding: 20px 0;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
 .button-group>button {
   padding: 10px 20px;
+  margin-left: 20px;
 
   text-align: center;
 

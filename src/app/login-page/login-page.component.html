@@ -1,20 +1,29 @@
-<div class="login-layout">
+<div
+  *ngIf="!loadingService.isLoading; else loader"
+  class="login-layout"
+>
   <div class="form-wrapper">
-    <h1 class="login-header">Login</h1>
+    <div class="header-wrapper">
+      <h1 class="login-header">Login</h1>
+      <small
+        *ngIf="form.invalid && form.dirty"
+        class="form-warning"
+      >Wrong e-mail or password</small>
+    </div>
     <form
       [formGroup]="form"
       (ngSubmit)="submit()"
     >
       <div class="label-wrapper">
-        <label for="email">Email:</label>
+        <label for="login">Login:</label>
         <small>*required</small>
       </div>
       <input
-        formControlName="email"
-        id="email"
+        formControlName="login"
+        id="login"
         class="field"
-        type="email"
-        placeholder="Enter Email"
+        type="text"
+        placeholder="Enter Login"
         required
       >
 
@@ -41,3 +50,7 @@
     </form>
   </div>
 </div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
