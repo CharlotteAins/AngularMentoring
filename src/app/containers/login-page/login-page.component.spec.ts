@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormGroup } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { AuthService } from './../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { LoginPageComponent } from './login-page.component';
 
 

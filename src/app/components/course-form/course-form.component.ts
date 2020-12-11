@@ -2,9 +2,13 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Course } from '../interfaces/course';
-import { CourseService } from './../services/course.service';
-import { LoadingService } from './../services/loading.service';
+import { Store } from '@ngrx/store';
+import { Course } from 'src/app/interfaces/course';
+import { CourseService } from 'src/app/services/course.service';
+import { IAppState } from 'src/app/store/app/app.reducer';
+import { LoadingOff, LoadingOn } from './../../store/app/app.actions';
+import { AddCourse, UpdateCourse } from './../../store/courses/courses.actions';
+
 
 @Component( {
   selector: 'app-course-form',
@@ -28,7 +32,7 @@ export class CourseFormComponent implements OnInit {
     private route: ActivatedRoute,
     private courseService: CourseService,
     private datePipe: DatePipe,
-    private loadingService: LoadingService
+    private store: Store<{ app: IAppState; }>
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +58,7 @@ export class CourseFormComponent implements OnInit {
       return;
     }
 
-    this.loadingService.loadingOn();
+    this.store.dispatch( LoadingOn() );
 
     const course: Course = {
       ...this.form.value,
@@ -65,12 +69,12 @@ export class CourseFormComponent implements OnInit {
 
     if ( this.id ) {
       course.id = this.id;
-      this.courseService.update( course ).subscribe();
+      this.store.dispatch( UpdateCourse( { course } ) );
     } else {
-      this.courseService.add( course ).subscribe();
+      this.store.dispatch( AddCourse( { course } ) );
     }
 
-    this.loadingService.loadingOff();
+    this.store.dispatch( LoadingOff() );
     this.router.navigate( [ '/courses' ] );
   }
 

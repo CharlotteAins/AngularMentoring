@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { CoursesListComponent } from './courses-list.component';
-import {Course} from '../interfaces/course';
-import {CourseService} from '../services/course.service';
+import {Course} from '../../interfaces/course';
+import {CourseService} from '../../services/course.service';
+
 
 describe( 'CoursesListComponent', () => {
 

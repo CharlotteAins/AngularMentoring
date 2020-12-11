@@ -2,12 +2,12 @@
   <app-logo class="logo-container"></app-logo>
   <ul
     class="nav-container"
-    *ngIf="authService.isAuthenticated()"
+    *ngIf="isAuth && !!userInfo"
   >
     <li>
       <button class="btn-link">
         <i class="material-icons">person</i>
-        <span>{{fullUserName}}</span>
+        <span>{{userInfo.name.first}} {{userInfo.name.last}}</span>
       </button>
     </li>
     <li>

@@ -16,7 +16,7 @@
     <span>Add course</span>
   </button>
 
-  <div *ngIf="!loadingService.isLoading; else loading">
+  <div *ngIf="!isLoading; else loading">
     <div *ngIf="allCourses.length > 0; else coursesNotFound">
       <ul class="course-list">
         <li *ngFor="let course of allCourses">
