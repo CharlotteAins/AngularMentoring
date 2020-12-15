@@ -1,12 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Course } from 'src/app/interfaces/course';
 import { CourseService } from 'src/app/services/course.service';
 import { IAppState } from 'src/app/store/app/app.reducer';
-import { LoadingOff, LoadingOn } from './../../store/app/app.actions';
+import { IAuthor } from './../../interfaces/course';
+import { LoadingOff } from './../../store/app/app.actions';
 import { AddCourse, UpdateCourse } from './../../store/courses/courses.actions';
 
 
@@ -17,13 +18,14 @@ import { AddCourse, UpdateCourse } from './../../store/courses/courses.actions';
 } )
 export class CourseFormComponent implements OnInit {
 
-  public form: FormGroup = new FormGroup( {
-    name: new FormControl( null ),
-    description: new FormControl( null ),
-    length: new FormControl( null ),
-    date: new FormControl( null ),
-    authors: new FormControl( null ),
-  } );;
+  public authors: IAuthor[];
+  public form = this.fb.group( {
+    name: [ null, [ Validators.maxLength( 50 ) ] ],
+    description: [ null, [ Validators.maxLength( 500 ) ] ],
+    length: [ null, [ Validators.required, Validators.min( 0 ), Validators.max( 1000 ) ] ],
+    date: [ null ],
+    authors: [ null ],
+  } );
   private id: number;
   private currentCourse: Course;
 
@@ -32,8 +34,11 @@ export class CourseFormComponent implements OnInit {
     private route: ActivatedRoute,
     private courseService: CourseService,
     private datePipe: DatePipe,
-    private store: Store<{ app: IAppState; }>
-  ) { }
+    private store: Store<{ app: IAppState; }>,
+    private fb: FormBuilder
+  ) {
+    this.courseService.getAuthors().subscribe( authors => this.authors = authors );
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe( params => this.id = params.id );
@@ -42,12 +47,12 @@ export class CourseFormComponent implements OnInit {
       this.courseService.getById( this.id ).subscribe( course => {
         this.currentCourse = course;
 
-        this.form = new FormGroup( {
-          name: new FormControl( this.currentCourse.name ),
-          description: new FormControl( this.currentCourse.description ),
-          length: new FormControl( this.currentCourse.length ),
-          date: new FormControl( this.datePipe.transform( new Date( this.currentCourse.date ), 'yyyy-MM-dd' ) ),
-          authors: new FormControl( this.currentCourse.authors.name ),
+        this.form = this.fb.group( {
+          name: [ this.currentCourse.name, [ Validators.maxLength( 50 ) ] ],
+          description: [ this.currentCourse.description, [ Validators.maxLength( 500 ) ] ],
+          length: [ this.currentCourse.length, [ Validators.required, Validators.min( 0 ), Validators.max( 1000 ) ] ],
+          date: [ this.datePipe.transform( new Date( this.currentCourse.date ), 'yyyy-MM-dd' ) ],
+          authors: [ this.currentCourse.authors.name ],
         } );
       } );
     }
@@ -58,7 +63,6 @@ export class CourseFormComponent implements OnInit {
       return;
     }
 
-    this.store.dispatch( LoadingOn() );
 
     const course: Course = {
       ...this.form.value,

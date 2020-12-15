@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Authenticated } from 'src/app/store/auth/auth.action';
 import { LoadingOn } from './../../store/app/app.actions';
@@ -22,8 +22,8 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup( {
-      login: new FormControl( null ),
-      password: new FormControl( null ),
+      login: new FormControl( null, [ Validators.required ] ),
+      password: new FormControl( null, [ Validators.required ] ),
     } );
   }
 

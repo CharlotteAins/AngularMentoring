@@ -31,6 +31,9 @@ import { AuthEffects } from './store/auth/auth.effects';
 import authReducer from './store/auth/auth.reducer';
 import { CoursesEffect } from './store/courses/courses.effects';
 import coursesReducer from './store/courses/courses.reducer';
+import { DurationControlComponent } from './components/duration-control/duration-control.component';
+import { DateControlComponent } from './components/date-control/date-control.component';
+import { AuthorsControlComponent } from './components/authors-control/authors-control.component';
 
 
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -57,7 +60,10 @@ const INTERCEPTOR_PROVIDER: Provider = {
     CourseFormComponent,
     AddPageComponent,
     EditPageComponent,
-    LoaderComponent
+    LoaderComponent,
+    DurationControlComponent,
+    DateControlComponent,
+    AuthorsControlComponent
   ],
   imports: [
     BrowserModule,

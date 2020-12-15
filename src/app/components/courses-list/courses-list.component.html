@@ -1,6 +1,10 @@
 <div class="course-page">
-  <form class="search-form">
+  <form
+    [formGroup]="form"
+    class="search-form"
+  >
     <input
+      formControlName="search"
       type="text"
       placeholder="Type to search"
       (keyup)="search($event)"

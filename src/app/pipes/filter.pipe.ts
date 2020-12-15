@@ -1,13 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Course } from '../interfaces/course';
+import { IAuthor } from './../interfaces/course';
 
 @Pipe( {
   name: 'filter'
 } )
 export class FilterPipe implements PipeTransform {
 
-  transform( courses: Course[], part: string ): Course[] {
-    return courses.filter( course => course.name.includes( part ) );
+  transform( authors: IAuthor[], part: string ): IAuthor[] {
+    if ( part ) {
+      return authors.filter( author => author.name.includes( part ) );
+    }
+    return authors;
   }
 
 }

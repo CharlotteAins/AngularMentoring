@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from '../interfaces/course';
+import { IAuthor } from './../interfaces/course';
 
 @Injectable( { providedIn: 'root' } )
 export class CourseService {
@@ -28,5 +29,9 @@ export class CourseService {
 
   delete( id: number ): Observable<void> {
     return this.http.delete<void>( `${ this.serverUrl }/courses/${ id }` );
+  }
+
+  getAuthors(): Observable<IAuthor[]> {
+    return this.http.get<IAuthor[]>( `${ this.serverUrl }/authors` );
   }
 }

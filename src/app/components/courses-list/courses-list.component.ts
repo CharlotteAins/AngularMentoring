@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ICourse } from 'src/app/interfaces/course';
-import { CourseService } from 'src/app/services/course.service';
 import { DeleteCourse, LoadCourses, LoadMore, Search } from 'src/app/store/courses/courses.actions';
 import { ICoursesState } from 'src/app/store/courses/courses.reducer';
 import { LoadingOff, LoadingOn } from './../../store/app/app.actions';
@@ -20,9 +20,9 @@ export class CoursesListComponent implements OnInit {
   public currentCountCourses: number = 0;
   public coursesNotFoundMessage: string = 'no data. feel free to add new courses';
   public isLoading: boolean;
+  public form: FormGroup;
 
   constructor (
-    private courseService: CourseService,
     private router: Router,
     private store: Store<{ app: IAppState; courses: ICoursesState; }>
   ) {
@@ -31,6 +31,9 @@ export class CoursesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.form = new FormGroup( {
+      search: new FormControl( null, [ Validators.required ] )
+    } );
     this.loadCourses();
   }
 
@@ -42,7 +45,7 @@ export class CoursesListComponent implements OnInit {
 
   search( event: Event ): void {
     this.store.dispatch( LoadingOn() );
-    this.store.dispatch( Search( { search: ( <HTMLInputElement> event.target ).value } ) );
+    this.store.dispatch( Search( { search: this.form.value.search } ) );
     this.store.dispatch( LoadingOff() );
   }
 

@@ -30,45 +30,9 @@
         required
       ></textarea>
 
-      <div class="label-wrapper">
-        <label for="length">Duration:</label>
-        <small>*required</small>
-      </div>
-      <input
-        formControlName="length"
-        id="length"
-        class="field"
-        type="number"
-        min="0"
-        placeholder="minutes"
-        required
-      >
-      <p *ngIf="form.controls.length.dirty">{{form.controls.length.value | duration}}</p>
-
-      <div class="label-wrapper">
-        <label for="date">Date:</label>
-        <small>*required</small>
-      </div>
-      <input
-        formControlName="date"
-        id="date"
-        class="field"
-        type="date"
-        required
-      >
-
-      <div class="label-wrapper">
-        <label for="authors">Authors:</label>
-        <small>*required</small>
-      </div>
-      <input
-        formControlName="authors"
-        id="authors"
-        class="field"
-        type="text"
-        placeholder="Start typing"
-        required
-      >
+      <app-duration-control formControlName="length"></app-duration-control>
+      <app-date-control formControlName="date"></app-date-control>
+      <app-authors-control formControlName="authors"></app-authors-control>
 
       <div class="button-group">
         <button
